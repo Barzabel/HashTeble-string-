@@ -16,7 +16,7 @@ namespace HashTableTest
 			string p = "1";
 			for (int i = 0; i < 1000; i++) {
 				Assert::IsTrue(a.hash_fun(p)<=20);
-				p = p + char(i);
+				p = p + (char)(i + (int)p[0]);
 			}
 			
 		}
