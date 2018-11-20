@@ -48,7 +48,7 @@ public:
 		for (unsigned int i = 0; i <= this->step; i++)
 		{
 
-			if (this->boolarr[res + (i*this->step)%this->size] == val) {
+			if (this->boolarr[(res + (i*this->step))%this->size] == val) {
 				return (res + (i*this->step)) % this->size;
 			}
 			
