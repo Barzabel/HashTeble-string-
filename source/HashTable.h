@@ -48,12 +48,10 @@ public:
 		for (unsigned int i = 0; i <= this->step; i++)
 		{
 
-			if ((res + i < this->size) && (this->boolarr[res + i] == val)) {
-				return res + i;
+			if (this->boolarr[res + (i*this->step)%this->size] == val) {
+				return res + (i*this->step) % this->size;
 			}
-			else if ((res - i > 0) && (this->boolarr[res - i] == val)) {
-				return res - i;
-			}
+			
 		}
 		return 0;
 	}
@@ -66,7 +64,7 @@ private:
 	bool *boolarr;
 	string *valuearr;
 	unsigned int size;
-	unsigned int step = 1;
+	unsigned int step = 2;
 };
 
 
