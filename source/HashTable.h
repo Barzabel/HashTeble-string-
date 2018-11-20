@@ -35,7 +35,7 @@ public:
 
 
 	unsigned int seek_slot(string & value) {
-		return this->collis(this->hash_fun(value));
+		return this->find(value,false);
 	}
 
 
@@ -43,15 +43,15 @@ public:
 		this->valuearr[this->seek_slot(value)] = value;
 		this->boolarr[this->seek_slot(value)] = true;
 	}
-	unsigned int find(string & value) {
+	unsigned int find(string & value,bool val=true) {
 		unsigned int res = this->hash_fun(value);
-		for (int i = 0; i <= this->step; i++)
+		for (unsigned int i = 0; i <= this->step; i++)
 		{
 
-			if ((res + i < this->size) && (this->boolarr[res + i] == true)) {
+			if ((res + i < this->size) && (this->boolarr[res + i] == val)) {
 				return res + i;
 			}
-			else if ((res - i > 0) && (this->boolarr[res - i] == true)) {
+			else if ((res - i > 0) && (this->boolarr[res - i] == val)) {
 				return res - i;
 			}
 		}
@@ -61,20 +61,7 @@ public:
 
 private:
 
-	unsigned int collis(unsigned int count) 
-	{
-		for(int i = 0;i<=this->step;i++)
-		{
-			
-			if ((count + i < this->size)&&(this->boolarr[count + i] == false)) {
-				return count+i;
-			}
-			else if ((count - i > 0) && (this->boolarr[count - i] == false)) {
-				return count-i;
-			}
-		}
-		return 0;
-	}
+	
 
 	bool *boolarr;
 	string *valuearr;
