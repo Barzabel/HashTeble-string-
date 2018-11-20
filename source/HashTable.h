@@ -49,7 +49,7 @@ public:
 		{
 
 			if (this->boolarr[res + (i*this->step)%this->size] == val) {
-				return res + (i*this->step) % this->size;
+				return (res + (i*this->step)) % this->size;
 			}
 			
 		}
