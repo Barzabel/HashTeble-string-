@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
-#include "../source/HashTable.h"
+#include "../HashTable/HashTable.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -15,44 +15,34 @@ namespace HashTableTest
 			HashTable a(20);
 			string p = "1";
 			for (int i = 0; i < 1000; i++) {
-				Assert::IsTrue(a.hash_fun(p)<=20);
+				Assert::IsTrue(a.hash_fun(p)<20);
 				p = p + (char)(i + (int)p[0]);
 			}
 			
 		}
-		TEST_METHOD(seek_slot)
-		{
-			HashTable a(20);
-			string p = "1";
-			a.put(p);
-			Assert::IsTrue(a.hash_fun(p) != a.seek_slot(p));
-			for (int i = 0; i < 10; i++) {
-				a.put(p);
-			}
-			Assert::IsFalse(a.seek_slot(p));
-		}
+		
 		TEST_METHOD(find)
 		{
 			HashTable a(20);
 			string p = "1";
-			Assert::IsFalse(a.find(p));
+			Assert::IsTrue(a.find(p) == (-1));
 			a.put(p);
 
-			Assert::IsTrue(a.hash_fun(p) == a.find(p));
+			Assert::IsTrue(a.hash_fun(p) == a.find(p,true));
 			
 		}
 		TEST_METHOD(put)
 		{
 			HashTable a(20);
 			string p = "1";
-			Assert::IsFalse(a.find(p));
+			Assert::IsFalse(a.find(p)>=0);
 			a.put(p);
-			Assert::IsTrue(a.hash_fun(p) != a.seek_slot(p));
-			Assert::IsTrue(a.seek_slot(p)>0);
+			Assert::IsTrue(a.hash_fun(p) != a.find(p, false));
+			Assert::IsTrue(a.find(p, false) >=0);
 			a.put(p);
-			Assert::IsTrue(a.seek_slot(p) > 0);
+			Assert::IsTrue(a.find(p, false) >= 0);
 			a.put(p);
-			Assert::IsFalse(a.seek_slot(p));
+			Assert::IsFalse(a.find(p, false) >= 0);
 
 		}
 	};

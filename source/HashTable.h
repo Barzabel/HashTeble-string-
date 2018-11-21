@@ -35,16 +35,14 @@ public:
 
 
 
-	int seek_slot(string & value) {
-		return this->find(value,false);
-	}
+	
 
 
 	void put(string & value) {
-		if(this->seek_slot(value)>=0)
+		if(this->find(value, false) >=0)
 		{
-			this->valuearr[this->seek_slot(value)] = value;
-			this->boolarr[this->seek_slot(value)] = true;
+			this->valuearr[this->find(value, false)] = value;
+			this->boolarr[this->find(value, false)] = true;
 		}
 	}
 	int find(string & value,bool val=true) {
