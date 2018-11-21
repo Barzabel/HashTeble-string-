@@ -4,13 +4,13 @@
 
 using namespace std;
 #include<string>
-
+#include<cmath>
 
 class HashTable {
 
 public:
 
-	HashTable(unsigned int size):size(size+1) {
+	HashTable(int size):size(size) {
 		this->valuearr = new string[this->size];
 		this->boolarr = new bool[this->size] {false};
 		
@@ -18,34 +18,38 @@ public:
 
 
 	
-	unsigned int hash_fun(string &value) 
+	int hash_fun(string &value) 
 	{
-		unsigned int res = 1;
-		for (unsigned int i = 0; i < value.size(); i++)
+		int res = 0;
+		int a = 7;
+		int c = 13;
+		for (int i = 0; i < value.size(); i++)
 		{
-			res = res +unsigned int(value.at(i))*(i+1);
+			res = abs( ((int(value.at(i))+res) * c) + a)  ;
 
 		}
-		res = res % this->size;
-		return res;
+		return res% this->size;
 	}
 	
 
 
 
 
-	unsigned int seek_slot(string & value) {
+	int seek_slot(string & value) {
 		return this->find(value,false);
 	}
 
 
 	void put(string & value) {
-		this->valuearr[this->seek_slot(value)] = value;
-		this->boolarr[this->seek_slot(value)] = true;
+		if(this->seek_slot(value)>=0)
+		{
+			this->valuearr[this->seek_slot(value)] = value;
+			this->boolarr[this->seek_slot(value)] = true;
+		}
 	}
-	unsigned int find(string & value,bool val=true) {
-		unsigned int res = this->hash_fun(value);
-		for (unsigned int i = 0; i <= this->step; i++)
+	int find(string & value,bool val=true) {
+		int res = this->hash_fun(value);
+		for (int i = 0; i <= this->step; i++)
 		{
 
 			if (this->boolarr[(res + (i*this->step))%this->size] == val) {
@@ -53,7 +57,7 @@ public:
 			}
 			
 		}
-		return 0;
+		return -1;
 	}
 
 
@@ -63,8 +67,8 @@ private:
 
 	bool *boolarr;
 	string *valuearr;
-	unsigned int size;
-	unsigned int step = 2;
+	int size;
+	int step = 2;
 };
 
 
